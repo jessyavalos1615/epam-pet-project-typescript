@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import './index.css';
 
-const LoginForm = () => {
+const LoginForm = (props: any) => {
     const [inputs, setInputs] = useState({
         username: "",
         email: "",
@@ -27,8 +27,13 @@ const LoginForm = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         let url = `${process.env.REACT_APP_API_URL}/user/${action ? 'signin' : 'signup'}`;
-        axios.post(url, inputs).then(data => {
-            console.log(data);
+        axios.post(url, inputs).then(res => {
+            const { _id, username, email } = res.data.data;
+            props.setAuth({
+                _id,
+                username,
+                email
+            });
         }).catch(error => {
             console.error(error);
         });
