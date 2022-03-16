@@ -2,15 +2,16 @@
     margin: 40px;
     position: relative;
     max-width: 250px;
-    max-height: 350px;
+    max-height: 200px;
     box-shadow: 0 40px 60px -6px black;
 }
 
 .card-title {
     display: block;
+    font-size: 1.6rem;
     text-align: center;
-    color: #fff;
-    background-color: #649763;
+    color: var(--white);
+    background-color: var(--Primary);
     padding: 2%;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
@@ -29,20 +30,23 @@
 
 .card-desc {
     display: block;
-    font-size: 1.2rem;
     position: absolute;
     height: 0;
     top: 0;
     opacity: 0;
     padding: 18px 8%;
-    background-color: #649763;
-    color: #fff;
+    background-color: var(--Primary);
+    color: var(--white);
     overflow-y: scroll;
     transition: 0.8s ease;
     -ms-overflow-style: none;
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.card-desc p, .card-desc b {
+    font-size: 1.6rem;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

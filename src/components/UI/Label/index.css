@@ -1,0 +1,8 @@
+.label {
+    display: flex;
+    justify-content: center;
+    color: var(--white);
+    font-size: 2.3em;
+    font-weight: bold;
+    transition: .5s ease-in-out;
+}
