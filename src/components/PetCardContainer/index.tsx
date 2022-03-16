@@ -12,13 +12,20 @@ const PetCardContainer = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [breeds, setBreeds] = useState([]);
 
-    useEffect(() => {
+    useEffect((): any => {
+        let isSubscribed = true;
         axios.get(`${process.env.REACT_APP_DOG_URL}/v1/breeds?limit=8&page=${currentPage - 1}`)
             .then((data) => {
-                setBreeds(data.data);
-                setTotalCount(Math.floor(Number(data.headers['pagination-count']) / 8));
+                if (isSubscribed) {
+                    setBreeds(data.data);
+                    setTotalCount(Math.floor(Number(data.headers['pagination-count']) / 8));
+                } else {
+                    return null;
+                }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => isSubscribed ? console.log(error) : null);
+        
+        return () => (isSubscribed = false);
     }, [currentPage]);
 
     return (

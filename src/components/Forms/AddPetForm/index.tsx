@@ -1,13 +1,13 @@
 import './index.css';
 
-import { useState, useEffect, SyntheticEvent } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import InputText from '../../UI/Input/Text/index';
-import InputSelect from '../../UI/Input/Select';
-import Button from '../../UI/Button/index';
-import InputNumber from '../../UI/Input/Number/index';
 import Label from '../../UI/Label';
+import Button from '../../UI/Button/index';
 import useAuth from '../../../auth/useAuth';
+import InputSelect from '../../UI/Input/Select';
+import InputText from '../../UI/Input/Text/index';
+import InputNumber from '../../UI/Input/Number/index';
 
 const AddPetForm = ({ setAction }: any) => {
 
@@ -39,7 +39,7 @@ const AddPetForm = ({ setAction }: any) => {
             .catch((error) => isSubscribed ? console.log(error) : null);
 
         return () => (isSubscribed = false);
-    }, []);
+    });
 
     const handleChange = (event: any) => {
         const name = event.target.name;
