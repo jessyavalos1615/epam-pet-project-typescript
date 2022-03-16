@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import Button from "../../UI/Button";
+import InputText from "../../UI/Input/Text";
+import Label from "../../UI/Label";
 
 import './index.css';
 
@@ -45,20 +48,50 @@ const LoginForm = (props: any) => {
 
             <div className="signup">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="chk" aria-hidden="true">Sign up</label>
-                    <input type="text" name="username" placeholder="User name" value={inputs.username || ''} onChange={handleChange} required />
-                    <input type="email" name="email" placeholder="Email" value={inputs.email || ''} onChange={handleChange} required />
-                    <input type="password" name="password" placeholder="Password" value={inputs.password || ''} onChange={handleChange} required />
-                    <button>Sign up</button>
+                    <Label forId="chk" text="Sign up" margin='60px' />
+                    <InputText
+                        type="text"
+                        name="username"
+                        placeholder='User Name'
+                        value={inputs.username || ''}
+                        required={true}
+                        onChange={ handleChange} />
+                    <InputText
+                        type="email"
+                        name="email"
+                        placeholder='Email'
+                        value={inputs.email || ''}
+                        required={true}
+                        onChange={ handleChange} />
+                    <InputText
+                        type="password"
+                        name="password"
+                        placeholder='Password'
+                        value={inputs.password || ''}
+                        required={true}
+                        onChange={ handleChange} />
+                    <Button text="Sign Up" type="primary" width={100} margin="0 auto"/>
                 </form>
             </div>
 
             <div className="login">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="chk" aria-hidden="true">Login</label>
-                    <input type="email" name="email" placeholder="Email" value={inputs.email || ''} onChange={handleChange} required />
-                    <input type="password" name="password" placeholder="Password" value={inputs.password || ''} onChange={handleChange} required />
-                    <button>Login</button>
+                    <Label forId="chk" text="Login" margin="60px"/>
+                    <InputText
+                        type="email"
+                        name="email"
+                        placeholder='Email'
+                        value={inputs.email || ''}
+                        required={true}
+                        onChange={handleChange} />
+                    <InputText
+                        type="password"
+                        name="password"
+                        placeholder='Password'
+                        value={inputs.password || ''}
+                        required={true}
+                        onChange={handleChange} />
+                    <Button text="Login" type="primary" width={100} margin="0 auto"/>
                 </form>
             </div>
         </div>

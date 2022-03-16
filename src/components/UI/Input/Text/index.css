@@ -1,0 +1,12 @@
+.input-text {
+    height: 20px;
+    background: var(--white);
+    justify-content: center;
+    display: flex;
+    margin: 20px auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    border-radius: 5px;
+}

@@ -4,7 +4,7 @@ import PetLogo from './pet-logo/pet-logo.png';
 
 const Logo = () => {
     return (
-        <img src={PetLogo} alt="PetLogo"/>
+        <img className="logo" src={PetLogo} alt="PetLogo"/>
     );
 }
 

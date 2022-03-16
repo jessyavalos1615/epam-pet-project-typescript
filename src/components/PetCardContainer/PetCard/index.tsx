@@ -1,15 +1,9 @@
+import { PetCardTypes } from '../../../Interfaces/PetCard/PetCard';
 import './index.css';
 
-interface PetCardProps {
-    name: string;
-    image: string;
-    origin: string;
-    life: string;
-    group: string;
-    temperament: string;
-}
 
-const PetCard = (props: PetCardProps) => {
+
+const PetCard = (props: PetCardTypes) => {
     return (
         <div className="card">
             <h2 className="card-title">{props.name}</h2>

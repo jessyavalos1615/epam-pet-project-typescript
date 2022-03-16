@@ -3,8 +3,10 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAuth from './auth/useAuth';
 
-import Login from './components/Forms/LoginForm/index';
-import PetCardContainer from './components/PetCardContainer/index';
+import Profile from './components/Profile';
+import Login from './components/Forms/LoginForm';
+import PetCardContainer from './components/PetCardContainer';
+
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<PetCardContainer />} />
+        <Route path='/user' element={<Profile/>} />
       </Routes>
     </BrowserRouter>
   );
