@@ -20,4 +20,11 @@
 .list-items {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px){
+    .list{
+        max-width: 93vw;
+    }
 }

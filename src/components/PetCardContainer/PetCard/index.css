@@ -40,16 +40,13 @@
     overflow-y: scroll;
     transition: 0.8s ease;
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
 }
 
 .card-desc p, .card-desc b {
     font-size: 1.6rem;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .card-desc::-webkit-scrollbar {
     display: none;
 }

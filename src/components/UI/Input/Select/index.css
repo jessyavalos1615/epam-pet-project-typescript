@@ -44,13 +44,6 @@
 
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-
-}
-
 .select-options {
     position: absolute;
     width: 100%;
@@ -60,13 +53,16 @@ ul {
     border-end-start-radius: 5px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 .select-options::-webkit-scrollbar {
     display: none;
 }
 
-li {
+.custom-select-option {
     list-style-type: none;
     padding: 6px 20px;
     background: var(--white);
@@ -75,14 +71,14 @@ li {
     font-size: 1.4rem;
 }
 
-li:hover {
+.custom-select-option:hover {
     background-color: var(--primary);
     color: #ffffff;
     border: 1px solid;
     border-color: var(--gray);
 }
 
-li:last-child {
+.custom-select-option:last-child {
     border-end-end-radius: 5px;
     border-end-start-radius: 5px;
 }

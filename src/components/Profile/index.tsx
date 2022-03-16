@@ -9,7 +9,7 @@ const Profile = () => {
     return (
         <div className="profile">
             <ProfileUser auth={auth} />
-            <ProfilePetList id={ auth._id}/>
+            <ProfilePetList user={ auth._id}/>
         </div>
     );
 }
