@@ -9,7 +9,7 @@ import InputSelect from '../../UI/Input/Select';
 import InputText from '../../UI/Input/Text/index';
 import InputNumber from '../../UI/Input/Number/index';
 
-const AddPetForm = ({ setAction }: any) => {
+const AddPetForm = ({ selected, setSelected, setAction }: any) => {
 
     const [inputs, setInputs] = useState({
         petname: '',
@@ -22,13 +22,28 @@ const AddPetForm = ({ setAction }: any) => {
 
     useEffect((): any => {
         let isSubscribed = true;
-        axios.get(`${process.env.REACT_APP_DOG_URL}/v1/breeds`)
+
+        let urlApi;
+        switch (selected) {
+            case 1:
+                urlApi = process.env.REACT_APP_DOG_URL;
+                break;
+            case 2:
+                urlApi = process.env.REACT_APP_CAT_URL;
+                break;
+
+            default:
+                urlApi = process.env.REACT_APP_DOG_URL;
+                break;
+        }
+
+        axios.get(`${urlApi}/v1/breeds`)
             .then((data) => {
                 if (isSubscribed) {
-                    const breed = data.data.map((data: any) => {
+                    const breed = data.data.map((data: any, index: number) => {
                         return {
                             text: data.name,
-                            value: data.id
+                            value: index + 1
                         }
                     });
                     setBreeds(breed);
@@ -39,7 +54,7 @@ const AddPetForm = ({ setAction }: any) => {
             .catch((error) => isSubscribed ? console.log(error) : null);
 
         return () => (isSubscribed = false);
-    });
+    }, [selected]);
 
     const handleChange = (event: any) => {
         const name = event.target.name;
@@ -62,10 +77,10 @@ const AddPetForm = ({ setAction }: any) => {
         axios.post(`${process.env.REACT_APP_API_URL}/pet/add`, {
             ...inputs,
             user: auth._id,
-            type: 1
+            type: selected
         }).then(res => {
             if (res.data.data)
-                setAction(false);
+                setAction(false)
         }).catch(error => {
             console.error(error);
         });
@@ -110,7 +125,20 @@ const AddPetForm = ({ setAction }: any) => {
                     value={inputs.breed || ''}
                     onChange={handleChange}
                     options={breeds} />
-                <Button type='primary' text="Add pet" width={100} margin='0 auto' />
+                <div className='add-pet-buttons'>
+                    <Button
+                        type="button"
+                        classText='secondary'
+                        click={setSelected}
+                        text="Back"
+                        width={100}
+                        margin='0 10px 0 0' />
+                    <Button
+                        type='submit'
+                        classText='primary'
+                        text="Add pet"
+                        width={100} />
+                </div>
             </form>
         </div>
     );

@@ -1,6 +1,8 @@
 :root {
   --Primary: #649763;
   --Primary-Dark: #094F08;
+  --Secondary: #cccccc;
+  --Secondary-Dark: #777777;
   --Danger: #ff0011;
   --Danger-Dark: #c91d12;
   --select-border: #777;
@@ -8,7 +10,8 @@
   --select-arrow: var(--select-border);
   --white: #ffffff;
   --black: #000000;
-  --gray: #cccccc
+  --gray: #cccccc;
+  --gray-dark: #777;
 }
 
 * {

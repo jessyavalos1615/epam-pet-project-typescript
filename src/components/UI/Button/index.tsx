@@ -1,9 +1,9 @@
 import './index.css';
 import { ButtonTypes } from '../../../Interfaces/UI/Button';
 
-const Button = ({ text, type, click, width, margin }: ButtonTypes) => {
+const Button = ({ text, type, classText, click, width, margin, style }: ButtonTypes) => {
     return (
-        <button style={{ width: width, margin: margin }} className={`btn btn-${type}`} onClick={click}>
+        <button type={type} style={{ width: width, margin: margin }} className={`btn btn-${classText}`} onClick={click}>
             {text}
         </button>
     );
