@@ -21,6 +21,16 @@
     background: var(--Primary-Dark);
 }
 
+.btn-secondary {
+    background-color: var(--gray);
+    color: var(--black);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-dark);
+    color: var(--white);
+}
+
 .btn-danger {
     background: var(--Danger);
     color: var(--white);
@@ -28,4 +38,8 @@
 
 .btn-danger:hover {
     background: var(--Danger-Dark);
+}
+
+.btn.circle {
+    border-radius: 50%;
 }

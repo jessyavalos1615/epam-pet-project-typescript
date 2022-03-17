@@ -1,3 +1,8 @@
 .add-pet form {
     padding-top: 20px;
 }
+
+.add-pet-buttons {
+    display: flex;
+    justify-content: center;
+}

@@ -33,6 +33,7 @@
 .item-image { 
     width: 65px;
     height: 58px;
+    user-select: none;
 }
 
 @media (max-width: 768px) {

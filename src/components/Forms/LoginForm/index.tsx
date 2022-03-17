@@ -70,7 +70,7 @@ const LoginForm = (props: any) => {
                         value={inputs.password || ''}
                         required={true}
                         onChange={ handleChange} />
-                    <Button text="Sign Up" type="primary" width={100} margin="0 auto"/>
+                    <Button classText='primary' text="Sign Up" type="submit" width={100} margin="0 auto"/>
                 </form>
             </div>
 
@@ -91,7 +91,7 @@ const LoginForm = (props: any) => {
                         value={inputs.password || ''}
                         required={true}
                         onChange={handleChange} />
-                    <Button text="Login" type="primary" width={100} margin="0 auto"/>
+                    <Button classText='primary' text="Login" type="submit" width={100} margin="0 auto"/>
                 </form>
             </div>
         </div>

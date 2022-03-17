@@ -2,8 +2,8 @@ import Button from '../../UI/Button';
 import './index.css';
 import ProfilePetItem from './ProfilePetItem';
 import { useState, useEffect } from 'react';
-import AddPetForm from '../../Forms/AddPetForm';
 import axios from 'axios';
+import PetTypeContainer from '../../PetTypeContainer';
 
 const ProfilePetList = ({ user }: { user: string }) => {
 
@@ -18,7 +18,7 @@ const ProfilePetList = ({ user }: { user: string }) => {
             .catch(err => isSubscribed ? console.error(err) : null);
 
         return () => (isSubscribed = false);
-    }, [user]);
+    }, [action, user]);
 
     const handleAddPet = () => {
         setAction(!action);
@@ -29,14 +29,15 @@ const ProfilePetList = ({ user }: { user: string }) => {
             <div className="list-header">
                 <h1 className="list-header-title">Pet List</h1>
                 <Button
+                    classText={action ? 'danger' : 'primary'}
                     text={action ? 'Cancel' : 'Add'}
-                    type={action ? 'danger' : 'primary'}
+                    type='button'
                     click={handleAddPet} width={100} />
             </div>
             <hr />
 
             {action ?
-                <AddPetForm setAction={setAction} /> :
+                <PetTypeContainer setAction={setAction} /> :
                 <div className="list-items">
                     {pets.map((pet: any, index) => <ProfilePetItem key={index} petname={pet.petname} age={pet.age} breed={pet.breed} type={ pet.type }/>)}
                 </div>}
