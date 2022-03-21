@@ -1,0 +1,27 @@
+.favorite-pet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 0;
+    box-sizing: border-box;
+    height: 70%;
+    max-height: 100px;
+}
+
+.favorite-pet-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 65%;
+}
+
+.favorite-pet-data p {
+    font-size: 1.6rem;
+    color: var(--white);
+}
+
+.favorite-pet-image {
+    width: 65px;
+    height: 58px;
+    user-select: none;
+}

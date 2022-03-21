@@ -1,7 +1,7 @@
 import './index.css';
 import { InputNumberTypes } from '../../../../Interfaces/UI/Input/Number';
 
-const InputNumber = ({ name, value, onChange, min, max, step }: InputNumberTypes) => {
+const InputNumber = ({ name, value, onChange, min, max, step, style }: InputNumberTypes) => {
     return (
         <input
             className="input-number"
@@ -11,7 +11,8 @@ const InputNumber = ({ name, value, onChange, min, max, step }: InputNumberTypes
             onChange={onChange}
             min={min}
             max={max}
-            step={step} />
+            step={step}
+            style={style} />
     );
 }
 

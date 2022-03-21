@@ -7,4 +7,5 @@ export interface InputTextType {
     required?: boolean;
     onChange?: any;
     width?: number;
+    style?: {};
 }

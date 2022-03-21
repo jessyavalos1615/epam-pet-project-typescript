@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-between;
     background-color: var(--Primary);
-    max-width: 30%;
+    max-width: 48%;
     width: -webkit-fill-available;
-    height: 100px;
+    height: 110px;
     border: 1px solid var(--white);
     border-radius: 10px;
     margin-top: 20px;
@@ -30,20 +30,71 @@
     padding-bottom: 5px;
 }
 
-.item-image { 
-    width: 65px;
-    height: 58px;
+.item-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.item-pet-image {
+    width: 55px;
+    height: 48px;
     user-select: none;
+}
+
+.item-favorite-image {
+    display: none;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: -14px;
+    right: 0;
+    cursor: pointer;
+}
+
+.item-edit-image {
+    display: none;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: -14px;
+    right: 30px;
+    cursor: pointer;
+    transition: 1s ease-in;
+
+}
+
+.item-delete-image {
+    display: none;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: -14px;
+    right: 60px;
+    cursor: pointer;
+    transition: 1s ease-in;
+}
+
+.item:hover .item-favorite-image,
+.item:hover .item-delete-image,
+.item:hover .item-edit-image {
+    display: block;
+
 }
 
 @media (max-width: 768px) {
     .item {
-        max-width: 47%;
+        max-width: 100%;
     }
 }
 
-@media (max-width: 425px) {
-    .item {
-        max-width: 100%;
+@media (max-width: 640px) {
+
+    .item-favorite-image,
+    .item-edit-image,
+    .item-delete-image {
+        display: block;
+
     }
 }
