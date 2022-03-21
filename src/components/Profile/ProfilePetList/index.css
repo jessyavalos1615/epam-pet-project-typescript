@@ -23,8 +23,13 @@
     flex-wrap: wrap;
 }
 
-@media (max-width: 640px){
-    .list{
+.list-items .pagination {
+    margin-top: 20px;
+    width: 100%;
+}
+
+@media (max-width: 640px) {
+    .list {
         max-width: 93vw;
     }
 }

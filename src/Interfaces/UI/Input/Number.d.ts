@@ -5,4 +5,5 @@ export interface InputNumberTypes {
     min?: number;
     max?: number;
     step?: number;
+    style?: {};
 }

@@ -1,3 +1,16 @@
+.home-page {
+    padding: 0 20px;
+}
+
+.home-page-types { 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home-page-line {
+    margin-top: 20px
+}
+
 .cards {
     width: 100%;
     display: flex;

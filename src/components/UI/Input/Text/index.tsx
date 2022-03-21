@@ -2,7 +2,7 @@ import './index.css';
 
 import { InputTextType } from '../../../../Interfaces/UI/Input/Text';
 
-const InputText = ({ id, name, type, value, placeholder, required = false, onChange, width }: InputTextType) => {
+const InputText = ({ id, name, type, value, placeholder, required = false, onChange, width, style }: InputTextType) => {
     return (
         <input
             className="input-text"
@@ -13,7 +13,7 @@ const InputText = ({ id, name, type, value, placeholder, required = false, onCha
             value={value}
             onChange={onChange}
             required={required}
-            style={{ width: width }} />
+            style={style} />
     );
 }
 

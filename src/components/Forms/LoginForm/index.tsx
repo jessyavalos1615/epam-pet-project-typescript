@@ -48,35 +48,38 @@ const LoginForm = (props: any) => {
 
             <div className="signup">
                 <form onSubmit={handleSubmit}>
-                    <Label forId="chk" text="Sign up" margin='60px' />
+                    <Label forId="chk" text="Sign up" style={{margin: '60px'}} />
                     <InputText
                         type="text"
                         name="username"
                         placeholder='User Name'
                         value={inputs.username || ''}
                         required={true}
-                        onChange={ handleChange} />
+                        onChange={handleChange} />
                     <InputText
                         type="email"
                         name="email"
                         placeholder='Email'
                         value={inputs.email || ''}
                         required={true}
-                        onChange={ handleChange} />
+                        onChange={handleChange} />
                     <InputText
                         type="password"
                         name="password"
                         placeholder='Password'
                         value={inputs.password || ''}
                         required={true}
-                        onChange={ handleChange} />
-                    <Button classText='primary' text="Sign Up" type="submit" width={100} margin="0 auto"/>
+                        onChange={handleChange} />
+                    <Button classText='primary'
+                        text="Sign Up"
+                        type="submit"
+                        style={{ width: '100px', margin: '0 auto' }} />
                 </form>
             </div>
 
             <div className="login">
                 <form onSubmit={handleSubmit}>
-                    <Label forId="chk" text="Login" margin="60px"/>
+                    <Label forId="chk" text="Login"style={{margin: '60px'}} />
                     <InputText
                         type="email"
                         name="email"
@@ -91,7 +94,10 @@ const LoginForm = (props: any) => {
                         value={inputs.password || ''}
                         required={true}
                         onChange={handleChange} />
-                    <Button classText='primary' text="Login" type="submit" width={100} margin="0 auto"/>
+                    <Button classText='primary'
+                        text="Login"
+                        type="submit"
+                        style={{ width: '100px', margin: '0 auto' }} />
                 </form>
             </div>
         </div>

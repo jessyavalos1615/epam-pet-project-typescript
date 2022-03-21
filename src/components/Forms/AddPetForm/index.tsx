@@ -8,6 +8,7 @@ import useAuth from '../../../auth/useAuth';
 import InputSelect from '../../UI/Input/Select';
 import InputText from '../../UI/Input/Text/index';
 import InputNumber from '../../UI/Input/Number/index';
+import { SocketConnection } from '../../../SocketConnection';
 
 const AddPetForm = ({ selected, setSelected, setAction }: any) => {
 
@@ -31,7 +32,6 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
             case 2:
                 urlApi = process.env.REACT_APP_CAT_URL;
                 break;
-
             default:
                 urlApi = process.env.REACT_APP_DOG_URL;
                 break;
@@ -79,8 +79,10 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
             user: auth._id,
             type: selected
         }).then(res => {
-            if (res.data.data)
-                setAction(false)
+            if (res.status === 200) {
+                setAction(false);
+                SocketConnection.emit('getPets', { user: auth._id, page: 1 });
+            }
         }).catch(error => {
             console.error(error);
         });
@@ -102,7 +104,9 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
     return (
         <div className="add-pet">
             <form onSubmit={handleSubmit}>
-                <Label text='Pet Name' forId='petName' textIndent='-95px' />
+                <Label text='Pet Name'
+                    forId='petName'
+                    style={{ textIndent: '-95px' }} />
                 <InputText
                     id='petName'
                     type="text"
@@ -110,7 +114,7 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
                     placeholder="Pet Name"
                     value={inputs.petname || ''}
                     onChange={handleChange} />
-                <Label text='Age' textIndent='-95px' />
+                <Label text='Age' style={{ textIndent: '-95px' }} />
                 <InputNumber
                     name="age"
                     value={inputs.age || 0}
@@ -118,7 +122,7 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
                     min={0}
                     max={14}
                     step={.1} />
-                <Label text='Breed' textIndent='-95px' />
+                <Label text='Breed' style={{ textIndent: '-95px' }} />
                 <InputSelect
                     name="breed"
                     text="Breed"
@@ -131,13 +135,12 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
                         classText='secondary'
                         click={setSelected}
                         text="Back"
-                        width={100}
-                        margin='0 10px 0 0' />
+                        style={{ width: '100px', margin: '0 10px 0 0' }} />
                     <Button
                         type='submit'
                         classText='primary'
                         text="Add pet"
-                        width={100} />
+                        style={{ width: '100px' }} />
                 </div>
             </form>
         </div>

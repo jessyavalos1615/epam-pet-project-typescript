@@ -1,13 +1,18 @@
 import './index.css';
 import { useState, useEffect } from 'react';
 
-const InputSelect = ({ name, text, value, onChange, options }: any) => {
+const InputSelect = ({ name, text, value = 0, onChange, options }: any) => {
     const [showList, setShowList] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
-    });
+
+        if (value > 0) {
+            const selected = options.find((option: any) => option.value === value);
+            setSelectedOption(selected.text);
+        }
+    }, [options, value]);
 
     const handleClickOutside = (event: any) => {
         if (
