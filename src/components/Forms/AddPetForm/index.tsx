@@ -9,6 +9,7 @@ import InputSelect from '../../UI/Input/Select';
 import InputText from '../../UI/Input/Text/index';
 import InputNumber from '../../UI/Input/Number/index';
 import { SocketConnection } from '../../../SocketConnection';
+import Alerts from '../../Alerts';
 
 const AddPetForm = ({ selected, setSelected, setAction }: any) => {
 
@@ -51,7 +52,7 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
                     return null;
                 }
             })
-            .catch((error) => isSubscribed ? console.log(error) : null);
+            .catch((error) => isSubscribed ? Alerts.error(error.message) : null);
 
         return () => (isSubscribed = false);
     }, [selected]);
@@ -66,39 +67,65 @@ const AddPetForm = ({ selected, setSelected, setAction }: any) => {
         }));
     }
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
+        const addPetAlert = Alerts.loading("Please wait...");
 
         if (!validateInput()) {
-            console.log('something wrong happened');
+            Alerts.update(addPetAlert, {
+                render: "Validation Failed",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000
+            });
             return null;
         }
 
-        axios.post(`${process.env.REACT_APP_API_URL}/pet/add`, {
+        Alerts.update(addPetAlert, {
+            render: "Saving pet...",
+            type: "info",
+        });
+
+        await axios.post(`${process.env.REACT_APP_API_URL}/pet/add`, {
             ...inputs,
             user: auth._id,
             type: selected
-        }).then(res => {
-            if (res.status === 200) {
-                setAction(false);
-                SocketConnection.emit('getPets', { user: auth._id, page: 1 });
-            }
-        }).catch(error => {
-            console.error(error);
-        });
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    setAction(false);
+                    SocketConnection.emit('getPets', { user: auth._id, page: 1 });
+                    Alerts.update(addPetAlert, {
+                        render: "Pet saved successfully.",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 3000,
+                    });
+                }
+            })
+            .catch(error => {
+                Alerts.error(error.message);
+            });
     }
 
     const validateInput = (): Boolean => {
-        if (inputs.petname.trim().length === 0)
-            return false;
+        let valid: boolean = true;
+        if (inputs.petname.trim().length === 0) {
+            Alerts.error('Pet name is required!')
+            valid = false;
+        }
 
-        if (Number(inputs.age) === 0)
-            return false;
+        if (Number(inputs.age) === 0) {
+            Alerts.error('Pet age is required!');
+            valid = false;
+        }
 
-        if (Number(inputs.breed) === 0)
-            return false;
+        if (Number(inputs.breed) === 0) {
+            Alerts.error('Pet breed is required!');
+            valid = false;
+        }
 
-        return true;
+        return valid;
     }
 
     return (

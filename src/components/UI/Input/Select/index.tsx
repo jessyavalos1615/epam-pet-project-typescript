@@ -5,13 +5,19 @@ const InputSelect = ({ name, text, value = 0, onChange, options }: any) => {
     const [showList, setShowList] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
+    useEffect(():any => {
+        let isSubscribed = true;
 
-        if (value > 0) {
-            const selected = options.find((option: any) => option.value === value);
-            setSelectedOption(selected.text);
+        if (isSubscribed) {
+            document.addEventListener('mousedown', handleClickOutside);
+
+            if (value > 0) {
+                const selected = options.find((option: any) => option.value === value);
+                setSelectedOption(selected.text);
+            }
         }
+
+        return () => (isSubscribed = false)
     }, [options, value]);
 
     const handleClickOutside = (event: any) => {

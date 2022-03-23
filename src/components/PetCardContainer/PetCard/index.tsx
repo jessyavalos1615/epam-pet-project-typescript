@@ -1,8 +1,6 @@
 import { PetCardTypes } from '../../../Interfaces/PetCard/PetCard';
 import './index.css';
 
-
-
 const PetCard = (props: PetCardTypes) => {
     return (
         <div className="card">

@@ -13,6 +13,7 @@ import InputNumber from '../../UI/Input/Number';
 import InputSelect from '../../UI/Input/Select';
 import PetTypeContainer from '../../PetTypeContainer';
 import { SocketConnection } from '../../../SocketConnection';
+import Alerts from '../../Alerts';
 
 const ProfilePetList = ({ user }: { user: string }) => {
 
@@ -31,12 +32,14 @@ const ProfilePetList = ({ user }: { user: string }) => {
     });
 
     useEffect((): any => {
+        SocketConnection.connect();
         SocketConnection.emit('getPets', { user, page });
 
         SocketConnection.on('pets', (data) => {
             setPets(data.docs);
             setTotalPages(data.totalPages);
         });
+        return () => SocketConnection.disconnect();
     }, [page, user]);
 
     useEffect((): any => {
@@ -69,7 +72,7 @@ const ProfilePetList = ({ user }: { user: string }) => {
                     return null;
                 }
             })
-            .catch((error) => isSubscribed ? console.log(error) : null);
+            .catch((error) => isSubscribed ? Alerts.error(error.message) : null);
 
         return () => (isSubscribed = false);
     }, [petEdit.type]);
@@ -94,31 +97,58 @@ const ProfilePetList = ({ user }: { user: string }) => {
     }
 
     const validateInput = (): Boolean => {
-        if (petEdit.petname.trim().length === 0)
-            return false;
+        let valid: boolean = true;
+        if (petEdit.petname.trim().length === 0) {
+            Alerts.error('Pet name is required!')
+            valid = false;
+        }
 
-        if (Number(petEdit.age) === 0)
-            return false;
+        if (Number(petEdit.age) === 0) {
+            Alerts.error('Pet age is required!');
+            valid = false;
+        }
 
-        if (Number(petEdit.breed) === 0)
-            return false;
+        if (Number(petEdit.breed) === 0) {
+            Alerts.error('Pet breed is required!');
+            valid = false;
+        }
 
-        return true;
+        return valid;
     }
 
     const handleSubmit = async () => {
-        if (!validateInput)
+        const addPetAlert = Alerts.loading("Please wait...");
+        if (!validateInput) {
+            Alerts.update(addPetAlert, {
+                render: "Validation Failed",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000
+            });
             return null;
+        }
 
+        Alerts.update(addPetAlert, {
+            render: "Saving pet...",
+            type: "info",
+        });
         await axios.put(`${process.env.REACT_APP_API_URL}/pet/edit`, petEdit)
             .then(res => {
-                SocketConnection.emit('getPets', { user, page });
-                if (res.data.pet.favorite)
-                    SocketConnection.emit('getFavorites', { user });
+                if (res.status === 200) {
+                    Alerts.update(addPetAlert, {
+                        render: "Pet saved successfully.",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 3000,
+                    });
+                    SocketConnection.emit('getPets', { user, page });
+                    if (res.data.pet.favorite)
+                        SocketConnection.emit('getFavorites', { user });
 
-                setShow(false);
+                    setShow(false);
+                }
             })
-            .catch(err => console.log(err));
+            .catch(err => Alerts.error(err.message));
     }
 
     return (
