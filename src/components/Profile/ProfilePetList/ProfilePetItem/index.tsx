@@ -11,6 +11,7 @@ import { SocketConnection } from '../../../../SocketConnection';
 import favoriteBlank from '../../../../icons/favorite/favorite.svg';
 import favoriteSolid from '../../../../icons/favorite/favorite-solid.svg';
 import { ProfilePetItemTypes } from '../../../../Interfaces/ProfilePetItem/ProfilePetItem';
+import Alerts from '../../../Alerts';
 
 const ProfilePetItem = ({ id, petname, age, breed, type, favorite, user, edit }: ProfilePetItemTypes) => {
 
@@ -52,22 +53,40 @@ const ProfilePetItem = ({ id, petname, age, breed, type, favorite, user, edit }:
                     }
                 }
             })
-            .catch(err => isSubscribed ? console.error(err) : null);
+            .catch(err => isSubscribed ? Alerts.error(err.message) : null);
 
         return () => (isSubscribed = false);
     }, [breed, favorite, type]);
 
     const handleAddFavorite = async () => {
+        const addFavoriteAlert = Alerts.loading('Adding Favorite...')
         await axios.post(`${process.env.REACT_APP_API_URL}/pet/favorites/add`, {
             id,
             favorite: !favoritePet
         }).then((res) => {
             if (res.status === 200) {
+                let text:string = 'Favorite pet added';
+                if (favoritePet) {
+                    text = 'Favorite pet removed.'
+                }
+                Alerts.update(addFavoriteAlert, {
+                    render: text,
+                    theme: 'colored',
+                    type: 'success',
+                    isLoading: false,
+                    autoClose: 3000,
+                });
                 setFavoritePet(!favoritePet);
                 SocketConnection.emit('getFavorites', { user });
             }
         }).catch(err => {
-            console.error(err);
+            Alerts.update(addFavoriteAlert, {
+                render: err.message,
+                isLoading: false,
+                autoClose: 3000,
+                type: 'error',
+                theme: 'colored'
+            });
         })
     }
 
@@ -82,6 +101,7 @@ const ProfilePetItem = ({ id, petname, age, breed, type, favorite, user, edit }:
     }
 
     const handleDeletePet = async () => {
+        const deletePetAlert = Alerts.loading('Deleting pet information...')
         await axios.delete(`${process.env.REACT_APP_API_URL}/pet/delete`, {
             params: {
                 id
@@ -89,11 +109,28 @@ const ProfilePetItem = ({ id, petname, age, breed, type, favorite, user, edit }:
         })
             .then((res) => {
                 if (res.status === 200) {
+                    Alerts.update(deletePetAlert, {
+                        position: 'bottom-right',
+                        theme: 'colored',
+                        type: 'success',
+                        render: 'Pet delete Successfully',
+                        isLoading: false,
+                        autoClose: 3000
+                    });
                     SocketConnection.emit('getPets', { user, page: 1 });
                     SocketConnection.emit('getFavorites', { user });
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                Alerts.update(deletePetAlert, {
+                    position: 'bottom-right',
+                    theme: 'colored',
+                    type: 'error',
+                    render: 'Something went wrong, please try again.',
+                    isLoading: false,
+                    autoClose: 3000
+                });
+            });
     }
 
     return (

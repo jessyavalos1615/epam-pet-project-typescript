@@ -6,6 +6,7 @@ import useAuth from './auth/useAuth';
 import Profile from './components/Profile';
 import Login from './components/Forms/LoginForm';
 import PetCardContainer from './components/PetCardContainer';
+import Navigation from './components/Navegation';
 
 
 function App() {
@@ -17,12 +18,15 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<PetCardContainer />} />
-        <Route path='/user' element={<Profile/>} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+      <Navigation />
+        <Routes>
+          <Route path='/' element={<PetCardContainer />} />
+          <Route path='/user' element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import Alerts from "../../Alerts";
+
+
 import Button from "../../UI/Button";
 import InputText from "../../UI/Input/Text";
 import Label from "../../UI/Label";
 
 import './index.css';
 
-const LoginForm = (props: any) => {
+const LoginForm = ({ setAuth }: { setAuth: Function }) => {
     const [inputs, setInputs] = useState({
         username: "",
         email: "",
@@ -27,19 +30,20 @@ const LoginForm = (props: any) => {
         }));
     }
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         let url = `${process.env.REACT_APP_API_URL}/user/${action ? 'signin' : 'signup'}`;
-        axios.post(url, inputs).then(res => {
-            const { _id, username, email } = res.data.data;
-            props.setAuth({
-                _id,
-                username,
-                email
+        await axios.post(url, inputs)
+            .then(res => {
+                if (res.status === 200) {
+                    setAuth(res.data.data);
+                    Alerts.success(res.data.response)
+                }
+            })
+            .catch(err => {
+                console.log(err.response)
+                Alerts.error(err.response.data.response)
             });
-        }).catch(error => {
-            console.error(error);
-        });
     }
 
     return (
@@ -48,7 +52,7 @@ const LoginForm = (props: any) => {
 
             <div className="signup">
                 <form onSubmit={handleSubmit}>
-                    <Label forId="chk" text="Sign up" style={{margin: '60px'}} />
+                    <Label forId="chk" text="Sign up" style={{ margin: '60px' }} />
                     <InputText
                         type="text"
                         name="username"
@@ -79,7 +83,7 @@ const LoginForm = (props: any) => {
 
             <div className="login">
                 <form onSubmit={handleSubmit}>
-                    <Label forId="chk" text="Login"style={{margin: '60px'}} />
+                    <Label forId="chk" text="Login" style={{ margin: '60px' }} />
                     <InputText
                         type="email"
                         name="email"

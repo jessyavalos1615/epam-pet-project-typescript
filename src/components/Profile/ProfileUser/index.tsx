@@ -3,9 +3,11 @@ import './index.css';
 import { useState, useEffect } from 'react';
 
 import Logo from '../../Logo';
-import FavoritePet from '../FavoritePet';
 import Label from '../../UI/Label';
+import Button from '../../UI/Button';
+import FavoritePet from '../FavoritePet';
 import { SocketConnection } from '../../../SocketConnection';
+import Alerts from '../../Alerts';
 
 
 const ProfileUser = ({ auth }: any) => {
@@ -21,12 +23,24 @@ const ProfileUser = ({ auth }: any) => {
         return () => SocketConnection.disconnect();
     }, [auth._id]);
 
+    const handleClick = () => {
+        sessionStorage.removeItem('auth');
+        window.location.reload();
+        Alerts.info('Session closed.');
+    }
+
     return (
         <div className="profile-user">
             <div className="profile-user-data">
                 <Logo />
                 <p>{auth.username}</p>
                 <p>{auth.email}</p>
+
+                <Button text="Log out"
+                    type="button"
+                    classText="danger"
+                    click={handleClick}
+                    style={{ width: '100px', marginTop: '10px' }} />
             </div>
             <div className="profile-favorite-pets">
                 {favorites.length > 0 ?

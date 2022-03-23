@@ -7,6 +7,7 @@ import axios from 'axios';
 import PetCard from './PetCard/index';
 import { BreedType } from '../../Interfaces/PetCard/Breed';
 import PetType from '../PetTypeContainer/PetType';
+import Alerts from '../Alerts';
 
 const PetCardContainer = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +40,7 @@ const PetCardContainer = () => {
                     return null;
                 }
             })
-            .catch((error) => isSubscribed ? console.log(error) : null);
+            .catch((error) => isSubscribed ? Alerts.error(error.message) : null);
 
         return () => (isSubscribed = false);
     }, [currentPage, petType]);
