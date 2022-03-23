@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AuthTypes } from '../Interfaces/Auth/Auth';
 
 export default function useAuth() {
     const getAuth = () => {
@@ -9,7 +10,7 @@ export default function useAuth() {
 
     const [auth, setAuth] = useState(getAuth());
 
-    const saveAuth = (userAuth: { _id: string; username: string; email: string }) => {
+    const saveAuth = (userAuth: AuthTypes) => {
         sessionStorage.setItem('auth', JSON.stringify(userAuth));
         setAuth(userAuth);
     };

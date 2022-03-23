@@ -1,7 +1,9 @@
 import './index.css';
 
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+import Alerts from '../../Alerts';
 import Label from '../../UI/Label';
 import Button from '../../UI/Button/index';
 import useAuth from '../../../auth/useAuth';
@@ -9,9 +11,9 @@ import InputSelect from '../../UI/Input/Select';
 import InputText from '../../UI/Input/Text/index';
 import InputNumber from '../../UI/Input/Number/index';
 import { SocketConnection } from '../../../SocketConnection';
-import Alerts from '../../Alerts';
+import { AddPetFormTypes } from '../../../Interfaces/Forms/AddPetForm';
 
-const AddPetForm = ({ selected, setSelected, setAction }: any) => {
+const AddPetForm = ({ selected, setSelected, setAction }: AddPetFormTypes) => {
 
     const [inputs, setInputs] = useState({
         petname: '',

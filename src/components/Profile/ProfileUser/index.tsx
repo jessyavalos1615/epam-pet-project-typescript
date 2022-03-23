@@ -8,9 +8,10 @@ import Button from '../../UI/Button';
 import FavoritePet from '../FavoritePet';
 import { SocketConnection } from '../../../SocketConnection';
 import Alerts from '../../Alerts';
+import { AuthTypes } from '../../../Interfaces/Auth/Auth';
 
 
-const ProfileUser = ({ auth }: any) => {
+const ProfileUser = ({ auth }: { auth: AuthTypes }) => {
     const [favorites, setFavorites] = useState([]);
 
     useEffect((): any => {

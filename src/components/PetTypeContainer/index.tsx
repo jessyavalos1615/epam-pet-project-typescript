@@ -4,7 +4,7 @@ import PetType from './PetType/index';
 import AddPetForm from '../Forms/AddPetForm/index';
 import Label from '../UI/Label';
 
-const PetTypeContainer = ({ setAction }: any) => {
+const PetTypeContainer = ({ setAction }: {setAction: Function}) => {
 
     const [selected, setSelected] = useState(0);
 

@@ -5,8 +5,9 @@ import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import Button from '../UI/Button';
+import { ModalTypes } from '../../Interfaces/Modal/ModalTypes';
 
-const Modal = ({ show, onClose, onSubmit, title, children }: any) => {
+const Modal = ({ show, onClose, onSubmit, title, children }: ModalTypes) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const closeOnEscapeKeyDown = (e: KeyboardEvent) => {
         if ((e.charCode || e.keyCode) === 27)

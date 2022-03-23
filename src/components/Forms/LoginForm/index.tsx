@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { LoginFormTypes } from "../../../Interfaces/Forms/LoginForm";
 import Alerts from "../../Alerts";
 
 
@@ -9,7 +10,7 @@ import Label from "../../UI/Label";
 
 import './index.css';
 
-const LoginForm = ({ setAuth }: { setAuth: Function }) => {
+const LoginForm = ({ setAuth }: LoginFormTypes) => {
     const [inputs, setInputs] = useState({
         username: "",
         email: "",
@@ -17,7 +18,7 @@ const LoginForm = ({ setAuth }: { setAuth: Function }) => {
     });
     const [action, setAction] = useState(false);
 
-    const handleChangeChk = (event: any) => {
+    const handleChangeChk = () => {
         setAction(!action)
     }
 

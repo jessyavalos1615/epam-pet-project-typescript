@@ -1,11 +1,13 @@
 import './index.css';
 
-import catIcon from '../../../icons/pets/cat-icon.svg'
-import dogIcon from '../../../icons/pets/dog-icon.svg'
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-const FavoritePet = ({ petname, age, type, breed }: any) => {
+import catIcon from '../../../icons/pets/cat-icon.svg';
+import dogIcon from '../../../icons/pets/dog-icon.svg';
+import { FavoritePetTypes } from '../../../Interfaces/FavoritePet/FavoritePet';
+
+const FavoritePet = ({ petname, age, type, breed }: FavoritePetTypes) => {
     const [breedName, setBreedName] = useState('');
 
     useEffect((): any => {
